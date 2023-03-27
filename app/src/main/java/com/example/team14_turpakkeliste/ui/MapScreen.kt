@@ -1,6 +1,7 @@
 package com.example.team14_turpakkeliste.ui
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
@@ -53,6 +54,11 @@ fun DisplayMap() {
     val googleMap = remember {
         mutableStateOf<GoogleMap?>(null)
     }
+
+    val clickedLatLng = remember {
+        mutableStateOf<LatLng?>(null)
+    }
+
     AndroidView({ mapView }) { view ->
         mapView.onCreate(null)
         mapView.onResume()
@@ -62,6 +68,11 @@ fun DisplayMap() {
                 val norway = LatLng(62.943669, 9.917546)
                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(norway, 5f))
                 map.addMarker(MarkerOptions().position(LatLng(59.297573, 10.420644)))
+                map.setOnMapClickListener { latLng ->
+                    clickedLatLng.value = latLng
+                    // Call the API with the clicked LatLng here
+                    Log.d("", clickedLatLng.value.toString())
+                }
             }
         }
     }

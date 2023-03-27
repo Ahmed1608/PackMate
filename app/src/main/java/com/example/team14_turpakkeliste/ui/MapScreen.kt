@@ -1,5 +1,6 @@
 package com.example.team14_turpakkeliste.ui
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
@@ -18,6 +19,7 @@ import com.example.team14_turpakkeliste.R
 import com.example.team14_turpakkeliste.ui.theme.ForestGreen
 import com.example.team14_turpakkeliste.ui.theme.Team14TurPakkeListeTheme
 import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
@@ -47,19 +49,21 @@ fun DisplayMap() {
             id = R.id.map_view
         }
     }
-
+    // Remember the GoogleMap instance
+    val googleMap = remember {
+        mutableStateOf<GoogleMap?>(null)
+    }
     AndroidView({ mapView }) { view ->
-        val googleMap = view.getMapAsync { map ->
-            val norway = LatLng(62.943669,9.917546)
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(norway, 5f))
-            map.addMarker(MarkerOptions().position(LatLng(59.297573,10.420644)))
-        }
         mapView.onCreate(null)
         mapView.onResume()
-        //My location, enabled
-//        mapView.getMapAsync { googleMap ->
-//            googleMap.isMyLocationEnabled = true
-//        }
+        // Get the GoogleMap instance if it's not already stored
+        if (googleMap.value == null) {
+            mapView.getMapAsync { map ->
+                val norway = LatLng(62.943669, 9.917546)
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(norway, 5f))
+                map.addMarker(MarkerOptions().position(LatLng(59.297573, 10.420644)))
+            }
+        }
     }
 }
 

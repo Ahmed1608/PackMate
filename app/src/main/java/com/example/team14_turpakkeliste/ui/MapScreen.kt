@@ -39,6 +39,7 @@ import java.io.IOException
 @Composable
 fun MapScreen(navController: NavController, viewModel: TurViewModel) {
     val focusManager = LocalFocusManager.current
+    //bug
     val location = remember {
         mutableStateOf("")
 

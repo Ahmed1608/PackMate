@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.team14_turpakkeliste.data.*
 import com.example.team14_turpakkeliste.ui.TurpakklisteUiState
+import io.ktor.client.network.sockets.*
 import io.ktor.client.plugins.*
 import kotlinx.coroutines.launch
 import kotlinx.serialization.SerializationException
@@ -28,11 +29,10 @@ class TurViewModel(): ViewModel() {
     init {
         getData()
     }
-    fun getForecast(){
+    fun getForecast(alerts:List<Alert>){
         viewModelScope.launch {
-            val alertList = source.getAllAlerts()
             val forecast = source.getForecastData(currentLatitude, currentLongitude)
-            turUiState = TurpakklisteUiState.Success(alertList, forecast)
+            turUiState = TurpakklisteUiState.Success(alerts, forecast)
         }
     }
 
@@ -46,7 +46,7 @@ class TurViewModel(): ViewModel() {
                 TurpakklisteUiState.Error
             } catch (ex: SerializationException) {
                 TurpakklisteUiState.Error
-            }catch (ex: Exception) {
+            } catch(e:Throwable){
                 TurpakklisteUiState.Error
             }
         }

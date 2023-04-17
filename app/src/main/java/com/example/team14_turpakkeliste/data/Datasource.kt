@@ -6,6 +6,7 @@ import com.google.gson.reflect.TypeToken
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.engine.cio.*
+import io.ktor.client.plugins.*
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
@@ -21,11 +22,10 @@ class Datasource {
     //https://gw-uio.intark.uh-it.no/in2000/weatherapi/locationforecast/2.0/compact?lat=60.12&lon=9.58
 
     //endre til proxy
-    private val apiUrl = "https://gw-uio.intark.uh-it.no/in2000/weatherapi/metalerts/1.1?lang=no"
     private val client = HttpClient(CIO) {
-        install(ContentNegotiation) {
-            gson()
-        }
+        install(ContentNegotiation) { gson() }
+        expectSuccess = true
+
     }
     suspend fun getForecastData(newlat: Double, newlon: Double): ForecastData {
         val client = client.get("https://gw-uio.intark.uh-it.no/in2000/weatherapi/locationforecast/2.0/compact?lat=${newlat}&lon=${newlon}"){

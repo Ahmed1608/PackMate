@@ -158,7 +158,7 @@ fun getImg(desc: String): Painter{
         "clearsky_night" -> painterResource(id = R.drawable.clearsky_night)
         //"clearsky_polartwilight" -> painterResource(id = R.drawable.clear)
         "cloudy" -> painterResource(id = R.drawable.cloudy)
-        "fair_day" -> painterResource(id = R.drawable.fair_day)n
+        "fair_day" -> painterResource(id = R.drawable.fair_day)
         "fair_night" -> painterResource(id = R.drawable.fair_night)
         "fair_polartwilight" -> painterResource(id = R.drawable.fair_polartwilight)
         "fog" -> painterResource(id = R.drawable.fog)

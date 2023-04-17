@@ -1,7 +1,9 @@
 package com.example.team14_turpakkeliste
 
 import ForecastData
+import android.os.Build
 import android.view.animation.OvershootInterpolator
+import androidx.annotation.RequiresApi
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
@@ -38,6 +40,7 @@ import com.example.team14_turpakkeliste.data.Alert
 import com.example.team14_turpakkeliste.ui.*
 import com.example.team14_turpakkeliste.ui.theme.Orange
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun SetStateScreen(navController: NavHostController,viewModel: TurViewModel = viewModel()){
 
@@ -49,11 +52,12 @@ fun SetStateScreen(navController: NavHostController,viewModel: TurViewModel = vi
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun BootScreen(navController: NavHostController,alerts:List<Alert>, forecastData: ForecastData,viewModel: TurViewModel){
     NavHost(navController = navController, startDestination = "SavedScreen") {
         composable(Screen.HomeScreen.route) { HomeScreen(navController) }
-        composable(Screen.MapScreen.route) { MapScreen(navController,viewModel) }
+        composable(Screen.MapScreen.route) { MapsComposeScreen(navController,viewModel) }
         composable(Screen.SavedScreen.route) { SavedScreen(navController) }
         composable(Screen.LoadingScreen.route) { LoadingScreen() }
         composable(Screen.ClothingScreen.route) { ClothingScreen(navController,forecastData,alerts,viewModel) }

@@ -1,23 +1,22 @@
 package com.example.team14_turpakkeliste
 
 import ForecastData
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import android.media.Image
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
@@ -25,14 +24,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.NavGraph.Companion.findStartDestination
-import com.example.team14_turpakkeliste.data.*
+import com.example.team14_turpakkeliste.data.Alert
+import com.example.team14_turpakkeliste.data.getWeather
+import com.example.team14_turpakkeliste.data.sortClothing
 import com.example.team14_turpakkeliste.ui.TurViewModel
 
-
 @Composable
-fun ClothingScreen(navController: NavController, forecastData: ForecastData, alerts: List<Alert>,viewModel: TurViewModel){
+fun ClothingScreen(navController: NavController, forecastData: ForecastData, alerts: List<Alert>, viewModel: TurViewModel){
     viewModel.getForecast()
     val recommendedList = sortClothing(forecastData)
     for(alert in alerts){
@@ -87,6 +87,8 @@ fun ExpandableCard(
         targetValue = if (expandedState) 180f else 0f
     )
 
+
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -131,6 +133,7 @@ fun ExpandableCard(
                     )
                 }
             }
+
             if (expandedState) {
                 val image = getImg(desc = img)
                 Image(painter = image, contentDescription = "picture of clothing-piece")
@@ -147,7 +150,7 @@ fun ExpandableCard(
 }
 
 @Composable
-fun getImg(desc: String): Painter{
+fun getImg(desc: String): Painter {
     val painter: Painter = when(desc){
         "SoftJO"->painterResource(id = R.drawable.softshelljakke)
         "SoftPO"->painterResource(id = R.drawable.softshellbukse)
@@ -158,7 +161,7 @@ fun getImg(desc: String): Painter{
         "clearsky_night" -> painterResource(id = R.drawable.clearsky_night)
         //"clearsky_polartwilight" -> painterResource(id = R.drawable.clear)
         "cloudy" -> painterResource(id = R.drawable.cloudy)
-        "fair_day" -> painterResource(id = R.drawable.fair_day)n
+        "fair_day" -> painterResource(id = R.drawable.fair_day)
         "fair_night" -> painterResource(id = R.drawable.fair_night)
         "fair_polartwilight" -> painterResource(id = R.drawable.fair_polartwilight)
         "fog" -> painterResource(id = R.drawable.fog)

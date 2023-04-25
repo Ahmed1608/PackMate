@@ -37,12 +37,12 @@ interface UserDao {
     fun getAll(): List<Pakkliste>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(user: Pakkliste)
+    fun insert(user: Pakkliste)
 
     @Delete
     suspend fun delete(user: Pakkliste)
 
     @Query("DELETE FROM pakklister")
-    suspend fun deleteAll()
+    fun deleteAll()
 
 }

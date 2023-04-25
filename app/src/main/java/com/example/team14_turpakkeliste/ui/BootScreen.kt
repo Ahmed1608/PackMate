@@ -50,7 +50,6 @@ fun SetStateScreen(navController: NavHostController,viewModel: TurViewModel = vi
         is TurpakklisteUiState.Error -> ErrorScreen()
         is TurpakklisteUiState.Loading -> LoadingScreen()
         is TurpakklisteUiState.Success -> BootScreen(navController,state.alerts,state.forecastData, viewModel)
-        is TurpakklisteUiState.DataBase -> SavedScreen(navController)
     }
 }
 

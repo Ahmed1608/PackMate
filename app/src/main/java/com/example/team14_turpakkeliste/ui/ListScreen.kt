@@ -15,9 +15,14 @@ import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -62,7 +67,8 @@ fun ListScreen(navController: NavController, viewModel: TurViewModel, forecastDa
                 .wrapContentWidth(Alignment.CenterHorizontally)
                 .padding(20.dp)
         )
-        for(i in 0..viewModel.numberOfDays){ExtendedFloatingActionButton(
+        var days = DropdownMenu(viewModel)
+        for(i in 0..days-1){ExtendedFloatingActionButton(
             containerColor = ForestGreen,
             contentColor = Color.White,
             icon = { Icon(Icons.Filled.Email, contentDescription = null) },
@@ -88,7 +94,7 @@ fun ListScreen(navController: NavController, viewModel: TurViewModel, forecastDa
                 }
                 },
                 modifier = Modifier
-                .fillMaxWidth()
+                    .fillMaxWidth()
                     .height(170.dp)
                     .padding(5.dp)
             )
@@ -134,4 +140,67 @@ fun SaveButton(viewModel: TurViewModel, forecastData: ForecastData){
         Icon(Icons.Filled.Favorite, contentDescription = "Save list")
         Text("Save list")
     }
+}
+
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun DropdownMenu(viewModel: TurViewModel): Int{
+
+
+    var expanded by remember { mutableStateOf(false) }
+    val districts = listOf("Dag 1", "Dag 2", "Dag 3")
+    ExposedDropdownMenuBox(
+        expanded = expanded,
+        onExpandedChange = { expanded = !expanded }
+
+    ) {
+
+        TextField(
+            modifier = Modifier.menuAnchor(),
+            readOnly = true,
+            value = districts[viewModel.numberOfDays-1],
+            onValueChange = { },
+            label = { Text("Velg district") },
+            trailingIcon = {
+                ExposedDropdownMenuDefaults.TrailingIcon(
+                    expanded = expanded
+                )
+            }
+        )
+
+        ExposedDropdownMenu(
+            expanded = expanded,
+            onDismissRequest = {
+                expanded = false
+            }
+        ) {
+            districts.forEach { selectionOption ->
+                DropdownMenuItem(
+                    text = { Text(selectionOption) },
+                    onClick = {
+
+
+                        when (selectionOption) {
+                            "Dag 1" -> {
+
+                                viewModel.numberOfDays = 1
+
+                            }
+                            "Dag 2" -> {
+                                viewModel.numberOfDays = 2
+
+                            }
+                            "Dag 3" -> {
+                                viewModel.numberOfDays = 3
+                            }
+                        }
+                        expanded = false
+                    })
+
+            }
+        }
+    }
+
+    return  viewModel.numberOfDays
 }

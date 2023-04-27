@@ -131,6 +131,7 @@ fun SaveButton(viewModel: TurViewModel, forecastData: ForecastData){
                     val img = getweatherIcon(forecastData, i)
                     val tempList = WeatherInfo(date, i, weather.temp, weather.windspeed,weather.watermm, img)
                     appDB.UserDao().insert(tempList)
+
                 }
             }
             buttonState = false

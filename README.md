@@ -1,1 +1,1 @@
-PackMate er en turpakkeliste app skrevet av 6 studenter i faget IN2000. Mer om appen og prosessen ligger her: https://docs.google.com/document/d/1xiEFbt5KdyAHUICAy1-0mkOA_NqhijgnrUiSqvr2Yek/edit?usp=sharing
+PackMate er en turpakkeliste app skrevet av 6 studenter i faget IN2000. Mer om appen og prosessen ligger her: i rapport-packmate.pdf
